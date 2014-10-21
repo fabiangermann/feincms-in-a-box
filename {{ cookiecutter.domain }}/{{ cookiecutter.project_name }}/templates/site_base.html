@@ -1,0 +1,105 @@
+{% raw %}<!DOCTYPE html>
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+{% load compress i18n staticfiles %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>
+    {% block title %}{% endblock %}
+  </title>
+  {% compress css %}
+  {% block css %}
+    <link rel="stylesheet" href="{% static '{% endraw %}{{ cookiecutter.project_name }}{% raw %}/css/app.css' %}">
+  {% endblock %}
+  {% endcompress %}
+  <link rel="shortcut icon" href="{% static '{% endraw %}{{ cookiecutter.project_name }}{% raw %}/images/feincms.png' %}">
+  <script src="{% static '{% endraw %}{{ cookiecutter.project_name }}{% raw %}/bower_components/modernizr/modernizr.js' %}"></script>
+  <script>onReady = [];</script>
+  {% block meta-tags %}{% endblock %}
+  {% comment %}
+  <link rel="alternate" type="application/rss+xml"
+    title="RSS Feed" href="http://www.{% endraw %}{{ cookiecutter.domain }}{% raw %}/feeds/news/">
+  {% endcomment %}
+  {% block extra-head %}{% endblock %}
+</head>
+<body>
+
+<div class="row collapse wrapper">
+  <div class="large-12 columns">
+
+    <div class="row collapse header">
+      <div class="large-6 columns">
+        <h1>
+          <a id="logo" href="/">
+            {% endraw %}{{ cookiecutter.nice_name }}{% raw %}
+          </a>
+        </h1>
+      </div>
+
+      <div class="large-6 columns push-for-medium">
+        <form method="get" action="/search/" class="search hide-for-small">
+          <input type="text" name="q" placeholder="Suche">
+          <i class="fi-magnifying-glass"></i>
+        </form>
+
+        {% block navigation %}{% endblock %}
+      </div>
+    </div>
+
+    {% block main %}{% endblock main %}
+    {% block footer %}{% endblock main %}
+
+    <div class="row copyright">
+      <div class="large-12 columns">
+        <p>
+          &copy;2013 &ndash; {% now "Y" %} FEINHEIT GmbH. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+</div><!-- row wrapper -->
+
+{% compress js %}
+{% block js %}
+  <script src="{% static '{% endraw %}{{ cookiecutter.project_name }}{% raw %}/bower_components/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static '{% endraw %}{{ cookiecutter.project_name }}{% raw %}/bower_components/foundation/js/foundation.min.js' %}"></script>
+  <script src="{% static '{% endraw %}{{ cookiecutter.project_name }}{% raw %}/js/lightbox.js' %}"></script>
+  <script src="{% static '{% endraw %}{{ cookiecutter.project_name }}{% raw %}/js/app.js' %}"></script>
+{% endblock %}
+{% endcompress %}
+{% block inline-js %}
+  <script>
+    for (var i=0, l=onReady.length; i<l; ++i) {
+      onReady[i].call(null, $);
+    }
+  </script>
+{% endblock %}
+
+{% comment %}<!--
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-16250062-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+-->{% endcomment %}
+<script>$(window).load(function() { $('.video-container').show(); });</script>
+
+  {% if request.user.is_staff and feincms_page %}
+    <div class="edit-tools">
+      {% block edit-tools %}
+      <a href="/admin/page/page/{{ feincms_page.id }}/"
+        class="button tiny">Edit page</a>
+      {% endblock %}
+    </div>
+  {% endif %}
+
+</body>
+</html>
+{% endraw %}
