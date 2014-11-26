@@ -7,12 +7,12 @@ insert_final_newline = true
 charset = utf-8
 trim_trailing_whitespace = true
 indent_style = space
+indent_size = 2
+
+# Indent for Python: 4 Spaces
+[*.py]
 indent_size = 4
+max_line_length = 79
 
-# HTML: 2 spaces
-[*.html]
-indent_size = 2
-
-# SCSS: 2 spaces according to scss-lint
-[*.scss]
-indent_size = 2
+[*.md]
+trim_trailing_whitespace = false
