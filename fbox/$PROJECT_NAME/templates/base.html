@@ -26,7 +26,7 @@
   <meta name="robots" content="noindex,follow,noodp">  {# TODO Remove "noindex" when going live! #}
   <meta property="og:title" content="{{ og_title|default:feincms_page.page_title }} - ${NICE_NAME}">
   <meta property="og:image" content="http://www.${DOMAIN}{{ og_image|default:'/static/${PROJECT_NAME}/images/NN4.png' }}">
-  <meta property="og:type" content="company">
+  <meta property="og:type" content="website">
   <meta property="og:url" content="{{ request.build_absolute_uri }}">
   <meta property="og:description" content="{{ og_description|default:feincms_page.meta_description|default:'' }}">
   <meta property="fb:admins" content="100001975335850">
@@ -158,14 +158,15 @@
     </div>
   </div>
 </div><!-- row wrapper -->
-
-{% compress js %}
 {% block js %}
+{% compress js %}
   <script src="{% static '${PROJECT_NAME}/bower_components/jquery/dist/jquery.min.js' %}"></script>
-  <script src="{% static '${PROJECT_NAME}/bower_components/foundation/js/foundation.min.js' %}"></script>
+  <script src="{% static '${PROJECT_NAME}/bower_components/foundation/js/foundation/foundation.js' %}"></script>
+  <!-- add more foundation scripts as needed -->
   <script src="{% static '${PROJECT_NAME}/build/app.js' %}"></script>
-{% endblock %}
 {% endcompress %}
+{% endblock %}
+
 {% block inline-js %}
   <script>
     for (var i=0, l=onReady.length; i<l; ++i) {
